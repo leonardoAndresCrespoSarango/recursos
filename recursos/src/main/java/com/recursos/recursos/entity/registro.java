@@ -11,8 +11,18 @@ public class registro {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
     private String detalle;
-    private int usuarioId;
     private int catalogoId;
+
+    public int getCatalogoId() {
+        return catalogoId;
+    }
+
+    public void setCatalogoId(int catalogoId) {
+        this.catalogoId = catalogoId;
+    }
+
+
+
 
     public registro() {
         super();
@@ -34,19 +44,5 @@ public class registro {
         this.detalle = detalle;
     }
 
-    public int getUsuarioId() {
-        return usuarioId;
-    }
 
-    public void setUsuarioId(int usuarioId) {
-        this.usuarioId = usuarioId;
-    }
-
-    public int getCatalogoId() {
-        return catalogoId;
-    }
-
-    public void setCatalogoId(int catalogoId) {
-        this.catalogoId = catalogoId;
-    }
 }

@@ -1,19 +1,28 @@
 package com.recursos.recursos.services;
 
 import com.recursos.recursos.entity.registro;
-import jakarta.transaction.Transactional;
+
 import org.springframework.stereotype.Service;
+import org.springframework.web.client.RestTemplate;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
+import javax.transaction.Transactional;
 import java.util.List;
+import org.springframework.boot.web.client.RestTemplateBuilder;
+
 
 @Service
 @Transactional
 public class recursoService {
     @PersistenceContext
     private EntityManager entityManager;
+    private final RestTemplate restTemplate;
+
+    public recursoService(RestTemplateBuilder restTemplateBuilder) {
+        this.restTemplate = restTemplateBuilder.build();
+    }
 
     public List<registro> getListaTodo() {
         String jpql = "SELECT c FROM registro c";
@@ -24,6 +33,11 @@ public class recursoService {
 
     public void insertarRegistro(registro registro) {
         entityManager.persist(registro);
+        int catalogoId = registro.getCatalogoId();
+        //catalogo catalogo = restTemplate.getForObject("http://catalogo-ms/catalogos/{id}", Catalogo.class, catalogoId);
+        // Asociar el catálogo obtenido al registro
+       /* registro.setCatalogo(catalogo);*/
+
     }
 
     public registro actualizarRegistro(int id, registro registroActualizado) {
